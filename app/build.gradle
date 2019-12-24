@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     defaultConfig {
-        applicationId "com.tzion.android.moviesmvi"
-        minSdkVersion 21
-        targetSdkVersion 28
+        applicationId "com.tzion.android"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,30 +21,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dynamicFeatures = [":about"]
+
+
 }
 
 dependencies {
-    def commonDependencies = rootProject.ext.commonDependencies
-    def commonTestDependencies = rootProject.ext.commonTestDependencies
-    def appDependencies = rootProject.ext.appDependencies
-    def appTestDependencies = rootProject.ext.appTestDependencies
+    def dependencies = rootProject.ext.dependencies
+    def testDependencies = rootProject.ext.testDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation commonDependencies.kotlin
-    implementation appDependencies.appCompat
-    implementation appDependencies.coreKtx
-    implementation appDependencies.constraintLayout
-    implementation appDependencies.dagger
-    implementation appDependencies.daggerAndroid
-    implementation appDependencies.daggerSupport
-    kapt appDependencies.daggerCompiler
-    kapt appDependencies.daggerProcessor
-    implementation appDependencies.rxKotlin
-    implementation appDependencies.rxAndroid
-    implementation appDependencies.javaxInject
-    implementation appDependencies.timber
+    implementation project(':ui-kit')
+    implementation project(':movies')
+    implementation project(':core-navigation')
 
-    testImplementation commonTestDependencies.jUnit
-    androidTestImplementation appTestDependencies.runner
-    androidTestImplementation appTestDependencies.espressoCore
+    implementation dependencies.kotlin
+    implementation dependencies.appCompat
+    implementation dependencies.coreKtx
+    implementation dependencies.constraintLayout
+    implementation dependencies.dagger
+    implementation dependencies.daggerAndroid
+    implementation dependencies.daggerSupport
+    kapt dependencies.daggerCompiler
+    kapt dependencies.daggerProcessor
+    implementation dependencies.rxKotlin
+    implementation dependencies.rxAndroid
+    implementation dependencies.javaxInject
+    implementation dependencies.timber
+
+    testImplementation testDependencies.jUnit
+    androidTestImplementation testDependencies.runner
+    androidTestImplementation testDependencies.espressoCore
 }

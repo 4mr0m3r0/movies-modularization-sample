@@ -1,23 +1,22 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    def commonDependencies = rootProject.ext.commonDependencies
-    def coreRemoteDependencies = rootProject.ext.coreRemoteDependencies
-    def coreRemoteTestDependencies = rootProject.ext.coreRemoteTestDependencies
+    def dependencies = rootProject.ext.dependencies
+    def testDependencies = rootProject.ext.testDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation commonDependencies.kotlin
-    implementation coreRemoteDependencies.okHttp
-    implementation coreRemoteDependencies.okHttpLogger
-    implementation coreRemoteDependencies.retrofit
-    implementation coreRemoteDependencies.retrofitConverter
-    implementation coreRemoteDependencies.retrofitAdapter
-    implementation coreRemoteDependencies.gson
-    implementation coreRemoteDependencies.rxKotlin
+    implementation dependencies.kotlin
+    implementation dependencies.okHttp
+    implementation dependencies.okHttpLogger
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitConverter
+    implementation dependencies.retrofitAdapter
+    implementation dependencies.gson
+    implementation dependencies.rxKotlin
 
 
-    testImplementation coreRemoteTestDependencies.kotlinJUnit
-    testImplementation coreRemoteTestDependencies.mockitoKotlin
+    testImplementation testDependencies.kotlinJUnit
+    testImplementation testDependencies.mockitoKotlin
 }
 
 sourceCompatibility = "7"

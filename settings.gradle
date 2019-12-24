@@ -1,1 +1,1 @@
-include ':app', ':core-remote'
+include ':app', ':core-remote', ':movies', ':core-testing', ':ui-kit', ':about', ':core-domain', ':core-presentation', ':core-navigation', ':login'
