@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">movies mvi</string>
     <string name="title_about">About</string>
+    <string name="title_featuresopenmovies">Open Movies</string>
 </resources>

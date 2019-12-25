@@ -3,7 +3,7 @@ package com.tzion.android.movies.data
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.tzion.android.core_testing.RandomFactory
+import com.tzion.coretesting.RandomFactory
 import com.tzion.android.movies.data.mapper.DataMovieMapper
 import com.tzion.android.movies.data.remote.model.RemoteMovie
 import com.tzion.android.movies.data.remote.model.RemoteSearch
@@ -15,7 +15,6 @@ import com.tzion.android.movies.factory.SearchFactory.makeRemoteSearch
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -40,7 +39,7 @@ class DataRepositoryTest {
         }
 
 
-        val testObserver = dataRepository.findMoviesByText(RandomFactory.generateString()).test()
+        val testObserver = dataRepository.findMoviesByText(com.tzion.coretesting.RandomFactory.generateString()).test()
 
         testObserver.assertValue(domainMovies)
     }

@@ -2,7 +2,7 @@
         package="com.tzion.android.movies">
 
     <application android:theme="@style/AppTheme">
-        <activity android:name=".ui.ListMoviesActivity">
+        <activity android:name=".ui.FindMoviesActivity">
             <intent-filter>
                 <action android:name="com.tzion.android.movies.list.open"/>
                 <category android:name="android.intent.category.DEFAULT" />

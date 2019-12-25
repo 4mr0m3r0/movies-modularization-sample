@@ -1,1 +1,12 @@
-include ':app', ':core-remote', ':movies', ':core-testing', ':ui-kit', ':about', ':core-domain', ':core-presentation', ':core-navigation', ':login'
+include ':app'
+
+include ':movies', ':about', ':login', ':features-openmovies'
+project(':features-openmovies').projectDir = new File(rootDir, "features/openmovies")
+
+include ':core-presentation', ':core-navigation', ':core-remote', ':core-testing'
+project(':core-presentation').projectDir = new File(rootDir, "core/presentation")
+project(':core-navigation').projectDir = new File(rootDir, "core/navigation")
+project(':core-remote').projectDir = new File(rootDir, "core/remote")
+project(':core-testing').projectDir = new File(rootDir, "core/testing")
+
+include ':ui-kit'

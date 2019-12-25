@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
-    def globalConfiguration = rootProject.extensions.getByName("ext")
-
-    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
-
+    compileSdkVersion androidVersions.androidCompileSdk
 
     defaultConfig {
-        minSdkVersion globalConfiguration["androidMinSdkVersion"]
-        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        minSdkVersion androidVersions.androidMinSdk
+        targetSdkVersion androidVersions.androidTargetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -25,16 +23,13 @@ android {
 }
 
 dependencies {
-    def dependencies = rootProject.ext.dependencies
-    def testDependencies = rootProject.ext.testDependencies
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation dependencies.kotlin
-    implementation dependencies.appCompat
-    implementation dependencies.coreKtx
-    implementation dependencies.constraintLayout
+    implementation libraries.dependencies.kotlin
+    implementation libraries.dependencies.appCompat
+    implementation libraries.dependencies.coreKtx
+    implementation libraries.dependencies.constraintLayout
 
-    testImplementation testDependencies.jUnit
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espressoCore
+    testImplementation testingLibraries.testDependencies.jUnit
+    androidTestImplementation testingLibraries.testDependencies.runner
+    androidTestImplementation testingLibraries.testDependencies.espressoCore
 }

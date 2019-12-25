@@ -3,11 +3,10 @@ package com.tzion.android.movies.domain
 import com.nhaarman.mockitokotlin2.*
 import com.tzion.android.core_domain.executor.PostExecutionThread
 import com.tzion.android.core_domain.executor.ThreadExecutor
-import com.tzion.android.core_testing.RandomFactory
+import com.tzion.coretesting.RandomFactory
 import com.tzion.android.movies.domain.model.DomainMovie
 import com.tzion.android.movies.factory.MovieFactory.makeDomainMovie
 import io.reactivex.Single
-import org.junit.Assert.*
 import org.junit.Test
 
 class FindMoviesByTextUseCaseTest {
@@ -19,7 +18,7 @@ class FindMoviesByTextUseCaseTest {
 
     @Test
     fun `given params, when buildUseCaseObservable, then complete`() {
-        val param = RandomFactory.generateString()
+        val param = com.tzion.coretesting.RandomFactory.generateString()
         stubRepository(Single.just(listOf(makeDomainMovie())))
 
         val testObserver = useCase.buildUseCaseObservable(param).test()
@@ -29,7 +28,7 @@ class FindMoviesByTextUseCaseTest {
 
     @Test
     fun `given params, when buildUseCaseObservable, then return data`() {
-        val param = RandomFactory.generateString()
+        val param = com.tzion.coretesting.RandomFactory.generateString()
         val domainMovie = makeDomainMovie()
         stubRepository(Single.just(listOf(domainMovie)))
 
@@ -44,7 +43,7 @@ class FindMoviesByTextUseCaseTest {
 
     @Test
     fun `given params, when buildUseCaseObservable, then call repository findMoviesByText`() {
-        val param = RandomFactory.generateString()
+        val param = com.tzion.coretesting.RandomFactory.generateString()
 
         useCase.buildUseCaseObservable(param)
 
