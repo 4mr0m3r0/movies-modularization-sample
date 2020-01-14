@@ -3,13 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 android {
-    def globalConfiguration = rootProject.extensions.getByName("ext")
-
-    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    compileSdkVersion androidVersions.androidCompileSdk
 
     defaultConfig {
-        minSdkVersion globalConfiguration["androidMinSdkVersion"]
-        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        minSdkVersion androidVersions.androidMinSdk
+        targetSdkVersion androidVersions.androidTargetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -29,39 +27,34 @@ android {
 }
 
 dependencies {
-    def dependencies = rootProject.ext.dependencies
-    def testDependencies = rootProject.ext.testDependencies
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core-testing')
-    implementation project(':core-domain')
     implementation project(':core-presentation')
 
-    implementation dependencies.kotlin
-    implementation dependencies.appCompat
-    implementation dependencies.coreKtx
-    implementation dependencies.okHttp
-    implementation dependencies.okHttpLogger
-    implementation dependencies.retrofit
-    implementation dependencies.retrofitConverter
-    implementation dependencies.retrofitAdapter
-    implementation dependencies.gson
-    implementation dependencies.rxKotlin
-    implementation dependencies.rxAndroid
-    implementation dependencies.javaxInject
-    implementation dependencies.rxBinding
-    implementation dependencies.rxBindingCore
-    implementation dependencies.rxBindingSwipeRefresh
-    implementation dependencies.rxBindingAppCompat
-    implementation dependencies.rxBindingMaterial
-    implementation dependencies.constraintLayout
-    implementation dependencies.archRuntime
-    implementation dependencies.archExtensions
-    kapt dependencies.archCompiler
+    implementation libraries.dependencies.kotlin
+    implementation libraries.dependencies.appCompat
+    implementation libraries.dependencies.coreKtx
+    implementation libraries.dependencies.okHttp
+    implementation libraries.dependencies.okHttpLogger
+    implementation libraries.dependencies.retrofit
+    implementation libraries.dependencies.retrofitConverter
+    implementation libraries.dependencies.retrofitAdapter
+    implementation libraries.dependencies.gson
+    implementation libraries.dependencies.rxKotlin
+    implementation libraries.dependencies.rxAndroid
+    implementation libraries.dependencies.javaxInject
+    implementation libraries.dependencies.rxBinding
+    implementation libraries.dependencies.rxBindingCore
+    implementation libraries.dependencies.rxBindingSwipeRefresh
+    implementation libraries.dependencies.rxBindingAppCompat
+    implementation libraries.dependencies.rxBindingMaterial
+    implementation libraries.dependencies.constraintLayout
+    implementation libraries.dependencies.archRuntime
+    implementation libraries.dependencies.archExtensions
+    kapt libraries.dependencies.archCompiler
 
-    testImplementation testDependencies.jUnit
-    testImplementation testDependencies.mockitoKotlin
-    testImplementation testDependencies.mockk
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espressoCore
+    testImplementation testingLibraries.testDependencies.jUnit
+    testImplementation testingLibraries.testDependencies.mockitoKotlin
+    testImplementation testingLibraries.testDependencies.mockk
+    androidTestImplementation testingLibraries.testDependencies.runner
+    androidTestImplementation testingLibraries.testDependencies.espressoCore
 }

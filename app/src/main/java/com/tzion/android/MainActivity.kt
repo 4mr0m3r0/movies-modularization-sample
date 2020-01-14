@@ -1,9 +1,8 @@
 package com.tzion.android
 
-import android.app.ActivityOptions
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tzion.android.core_navigation.Actions
+import com.tzion.corenavigation.Actions
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,9 +13,6 @@ class MainActivity : AppCompatActivity() {
 
         btn_open_movies.setOnClickListener {
             startActivity(Actions.openMovies(this))
-        }
-        btn_open_about.setOnClickListener {
-            startActivity(Actions.openAbout2())
         }
     }
 

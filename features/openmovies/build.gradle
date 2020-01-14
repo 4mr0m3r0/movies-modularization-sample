@@ -1,0 +1,66 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion androidVersions.androidCompileSdk
+
+    defaultConfig {
+        minSdkVersion androidVersions.androidMinSdk
+        targetSdkVersion androidVersions.androidTargetSdk
+
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':app')
+    implementation project(':core-presentation')
+    implementation project(':ui-kit')
+    implementation project(':core-navigation')
+    implementation project(':core-testing')
+    implementation project(':core-remote')
+    implementation project(':core-dagger')
+
+    implementation libraries.dependencies.kotlin
+    implementation libraries.dependencies.appCompat
+    implementation libraries.dependencies.coreKtx
+    implementation libraries.dependencies.okHttp
+    implementation libraries.dependencies.okHttpLogger
+    implementation libraries.dependencies.retrofit
+    implementation libraries.dependencies.retrofitConverter
+    implementation libraries.dependencies.retrofitAdapter
+    implementation libraries.dependencies.gson
+    implementation libraries.dependencies.rxKotlin
+    implementation libraries.dependencies.rxAndroid
+    implementation libraries.dependencies.javaxInject
+    implementation libraries.dependencies.dagger
+    kapt libraries.dependencies.daggerCompiler
+    implementation libraries.dependencies.constraintLayout
+    implementation libraries.dependencies.archRuntime
+    implementation libraries.dependencies.archExtensions
+    kapt libraries.dependencies.archCompiler
+    implementation libraries.dependencies.glide
+    annotationProcessor libraries.dependencies.glideCompiler
+    implementation libraries.dependencies.navigationFragment
+    implementation libraries.dependencies.navigationUi
+
+    testImplementation testingLibraries.testDependencies.jUnit
+    testImplementation testingLibraries.testDependencies.mockitoKotlin
+    testImplementation testingLibraries.testDependencies.mockk
+    testImplementation testingLibraries.testDependencies.testCore
+    testImplementation testingLibraries.testDependencies.archCoreTesting
+    androidTestImplementation testingLibraries.testDependencies.runner
+    androidTestImplementation testingLibraries.testDependencies.espressoCore
+}
