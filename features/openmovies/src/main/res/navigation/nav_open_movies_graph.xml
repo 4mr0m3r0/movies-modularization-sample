@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_open_movies"
+    app:startDestination="@id/findMoviesFragment">
+
+    <fragment
+        android:id="@+id/findMoviesFragment"
+        android:name="com.tzion.featuresopenmovies.ui.find.FindMoviesFragment"
+        android:label="FindMoviesFragment"
+        tools:layout="@layout/fragment_movies_find">
+        <action
+            android:id="@+id/action_findMoviesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.tzion.featuresopenmovies.ui.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movies_detail" />
+</navigation>

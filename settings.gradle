@@ -1,12 +1,13 @@
 include ':app'
 
-include ':movies', ':about', ':login', ':features-openmovies'
-project(':features-openmovies').projectDir = new File(rootDir, "features/openmovies")
+include ':about', ':login', ':features_openmovies'
+project(':features_openmovies').projectDir = new File(rootDir, "features/openmovies")
 
-include ':core-presentation', ':core-navigation', ':core-remote', ':core-testing'
+include ':core-presentation', ':core-navigation', ':core-remote', ':core-testing', ':core-dagger'
 project(':core-presentation').projectDir = new File(rootDir, "core/presentation")
 project(':core-navigation').projectDir = new File(rootDir, "core/navigation")
 project(':core-remote').projectDir = new File(rootDir, "core/remote")
 project(':core-testing').projectDir = new File(rootDir, "core/testing")
+project(':core-dagger').projectDir = new File(rootDir, "core/dagger")
 
 include ':ui-kit'

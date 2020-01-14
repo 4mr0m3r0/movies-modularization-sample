@@ -9,7 +9,8 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application>
+    <application
+        android:fullBackupContent="true">
         <activity android:name=".AboutActivity"
                 android:theme="@style/AppTheme">
             <intent-filter>

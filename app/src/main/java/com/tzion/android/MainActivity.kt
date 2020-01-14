@@ -12,10 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_open_movies.setOnClickListener {
-            startActivity(com.tzion.corenavigation.Actions.openMovies(this))
-        }
-        btn_open_about.setOnClickListener {
-            startActivity(com.tzion.corenavigation.Actions.openAbout2())
+            startActivity(Actions.openMovies(this))
         }
     }
 

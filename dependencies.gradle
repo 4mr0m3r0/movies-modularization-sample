@@ -17,11 +17,13 @@ def libVersions = [
         okHttp: '4.1.0',
         gson: '2.8.5',
         timber: '4.7.1',
-        appCompat: '1.0.2',
-        coreKtx: '1.0.2',
+        appCompat: '1.1.0',
+        coreKtx: '1.1.0',
         constraintLayout: '1.1.3',
         rxBinding: '3.0.0',
-        lifecycle: '2.2.0-alpha01'
+        lifecycle: '2.2.0-alpha01',
+        glide: '4.9.0',
+        navigation: '2.1.0'
 ]
 
 //Libraries for Testing
@@ -30,8 +32,10 @@ def testingLibVersions = [
         runner: '1.2.0',
         espressoCore: '3.2.0',
         assertJ: '3.11.2',
-        mockitoKotlin: '2.1.0',
-        mockk: '1.9.3'
+        mockitoKotlin: '2.2.0',
+        mockk: '1.9.3',
+        testCore: '1.0.0',
+        archCoreTesting: '2.1.0'
 ]
 
 def libRepositories = [
@@ -61,7 +65,12 @@ def libRepositories = [
         rxBindingMaterial:      "com.jakewharton.rxbinding3:rxbinding-material:${libVersions.rxBinding}",
         archRuntime:            "androidx.lifecycle:lifecycle-runtime:${libVersions.lifecycle}",
         archExtensions:         "androidx.lifecycle:lifecycle-extensions:${libVersions.lifecycle}",
-        archCompiler:           "androidx.lifecycle:lifecycle-compiler:${libVersions.lifecycle}"
+        archCompiler:           "androidx.lifecycle:lifecycle-compiler:${libVersions.lifecycle}",
+        viewmodel:              "androidx.lifecycle:lifecycle-viewmodel-ktx:${libVersions.lifecycle}",
+        glide:                  "com.github.bumptech.glide:glide:${libVersions.glide}",
+        glideCompiler:          "com.github.bumptech.glide:compiler:${libVersions.glide}",
+        navigationFragment:     "androidx.navigation:navigation-fragment-ktx:${libVersions.navigation}",
+        navigationUi:           "androidx.navigation:navigation-ui-ktx:${libVersions.navigation}"
 ]
 
 def testingLibRepositories = [
@@ -71,7 +80,9 @@ def testingLibRepositories = [
         kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${libVersions.kotlin}",
         assertj:        "org.assertj:assertj-core:${testingLibVersions.assertJ}",
         mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${testingLibVersions.mockitoKotlin}",
-        mockk:          "io.mockk:mockk:${testingLibVersions.mockk}"
+        mockk:          "io.mockk:mockk:${testingLibVersions.mockk}",
+        testCore:       "androidx.test:core:${testingLibVersions.testCore}",
+        archCoreTesting:"androidx.arch.core:core-testing:${testingLibVersions.archCoreTesting}"
 ]
 
 ext.androidVersions = androidSdkVersions

@@ -20,15 +20,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dynamicFeatures = [":about", ":features-openmovies"]
+    dynamicFeatures = [":about", ":features_openmovies"]
 
+    dataBinding {
+        enabled true
+    }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':ui-kit')
-    implementation project(':movies')
     implementation project(':core-navigation')
 
     implementation libraries.dependencies.kotlin

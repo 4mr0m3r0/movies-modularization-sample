@@ -10,5 +10,16 @@
         </dist:delivery>
         <dist:fusing dist:include="true" />
     </dist:module>
+
+    <application
+        android:fullBackupContent="true">
+        <activity android:name=".ui.FindMoviesActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>
 

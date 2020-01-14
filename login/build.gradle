@@ -28,7 +28,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core-testing')
     implementation project(':core-presentation')
 
     implementation libraries.dependencies.kotlin

@@ -4,8 +4,8 @@ import io.reactivex.Observable
 
 interface MviUi<TIntent, in TUiState> {
 
-    fun intents(): Observable<TIntent>
+    fun userIntents(): Observable<TIntent>
 
-    fun render(state: TUiState)
+    fun renderUiStates(uiState: TUiState)
 
 }
