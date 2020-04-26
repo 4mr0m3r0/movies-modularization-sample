@@ -34,9 +34,13 @@ A browser of movies
 ![To many results](screenshots/error-too-many-results.png "Too many results")
 ![No network](screenshots/error-no-network.png "No network")
 
-### Architecture
+Architecture
+------------
 This is an approach of Clean Architecture by features <br/>
 
 ![Architecture Diagram](screenshots/architecture-diagram.png "Architecture Diagram")
+_____
+### Clean Architecture
+![Clean Architecture](screenshots/clean-architecture.jpg "Clean Architecture")
 ![Feature Architecture Diagram](screenshots/feature-architecture-diagram.png "Feature Architecture Diagram")
 
