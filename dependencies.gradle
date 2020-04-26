@@ -1,71 +1,92 @@
-ext {
-    //Android
-    androidMinSdkVersion = 21
-    androidTargetSdkVersion = 28
-    androidCompileSdkVersion = 28
-    kotlinVersion = '1.3.41'
+//Android
+def androidSdkVersions = [
+        androidMinSdk: 21,
+        androidTargetSdk: 28,
+        androidCompileSdk: 28,
+]
 
-    //Libraries
-    rxJavaVersion = '2.2.11'
-    rxKotlinVersion = '2.4.0'
-    rxAndroidVersion = '2.1.1'
-    javaxInjectVersion = '1'
-    daggerVersion = '2.24'
-    retrofitVersion = '2.6.1'
-    okHttpVersion = '4.1.0'
-    gsonVersion = '2.8.5'
-    timberVersion = '4.7.1'
-    appCompatVersion = '1.0.2'
-    coreKtxVersion = '1.0.2'
-    constraintLayoutVersion = '1.1.3'
-    rxBindingVersion = '3.0.0'
-    lifecycleVersion = '2.2.0-alpha01'
+//Libraries
+def libVersions = [
+        kotlin: '1.3.41',
+        rxJava: '2.2.11',
+        rxKotlin: '2.4.0',
+        rxAndroid: '2.1.1',
+        javaxInject: '1',
+        dagger: '2.24',
+        retrofit: '2.6.1',
+        okHttp: '4.1.0',
+        gson: '2.8.5',
+        timber: '4.7.1',
+        appCompat: '1.1.0',
+        coreKtx: '1.1.0',
+        constraintLayout: '1.1.3',
+        rxBinding: '3.0.0',
+        lifecycle: '2.2.0-alpha01',
+        glide: '4.9.0',
+        navigation: '2.1.0',
+        material: '1.1.0'
+]
 
-    //Libraries for Testing
-    jUnitVersion = '4.12'
-    runnerVersion = '1.2.0'
-    espressoCoreVersion = '3.2.0'
-    assertJVersion = '3.11.2'
-    mockitoKotlinVersion = '2.1.0'
-    mockkVersion = '1.9.3'
+//Libraries for Testing
+def testingLibVersions = [
+        jUnit: '4.12',
+        runner: '1.2.0',
+        espressoCore: '3.2.0',
+        assertJ: '3.11.2',
+        mockitoKotlin: '2.2.0',
+        mockk: '1.9.3',
+        testCore: '1.0.0',
+        archCoreTesting: '2.1.0'
+]
 
-    dependencies = [
-            kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
-            appCompat:              "androidx.appcompat:appcompat:${appCompatVersion}",
-            coreKtx:                "androidx.core:core-ktx:${coreKtxVersion}",
-            constraintLayout:       "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
-            dagger:                 "com.google.dagger:dagger:${daggerVersion}",
-            daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerVersion}",
-            daggerAndroid:          "com.google.dagger:dagger-android:${daggerVersion}",
-            daggerSupport:          "com.google.dagger:dagger-android-support:${daggerVersion}",
-            daggerProcessor:        "com.google.dagger:dagger-android-processor:${daggerVersion}",
-            rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
-            rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            javaxInject:            "javax.inject:javax.inject:${javaxInjectVersion}",
-            timber:                 "com.jakewharton.timber:timber:${timberVersion}",
-            gson:                   "com.google.code.gson:gson:${gsonVersion}",
-            okHttp:                 "com.squareup.okhttp3:okhttp:${okHttpVersion}",
-            okHttpLogger:           "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
-            retrofit:               "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            retrofitConverter:      "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            retrofitAdapter:        "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
-            rxBinding:              "com.jakewharton.rxbinding3:rxbinding:${rxBindingVersion}",
-            rxBindingCore:          "com.jakewharton.rxbinding3:rxbinding-core:${rxBindingVersion}",
-            rxBindingSwipeRefresh:  "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:${rxBindingVersion}",
-            rxBindingAppCompat:     "com.jakewharton.rxbinding3:rxbinding-appcompat:${rxBindingVersion}",
-            rxBindingMaterial:      "com.jakewharton.rxbinding3:rxbinding-material:${rxBindingVersion}",
-            archRuntime:            "androidx.lifecycle:lifecycle-runtime:${lifecycleVersion}",
-            archExtensions:         "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}",
-            archCompiler:           "androidx.lifecycle:lifecycle-compiler:${lifecycleVersion}"
-    ]
+def libRepositories = [
+        kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${libVersions.kotlin}",
+        appCompat:              "androidx.appcompat:appcompat:${libVersions.appCompat}",
+        coreKtx:                "androidx.core:core-ktx:${libVersions.coreKtx}",
+        constraintLayout:       "androidx.constraintlayout:constraintlayout:${libVersions.constraintLayout}",
+        dagger:                 "com.google.dagger:dagger:${libVersions.dagger}",
+        daggerCompiler:         "com.google.dagger:dagger-compiler:${libVersions.dagger}",
+        daggerAndroid:          "com.google.dagger:dagger-android:${libVersions.dagger}",
+        daggerSupport:          "com.google.dagger:dagger-android-support:${libVersions.dagger}",
+        daggerProcessor:        "com.google.dagger:dagger-android-processor:${libVersions.dagger}",
+        rxKotlin:               "io.reactivex.rxjava2:rxkotlin:${libVersions.rxKotlin}",
+        rxAndroid:              "io.reactivex.rxjava2:rxandroid:${libVersions.rxAndroid}",
+        javaxInject:            "javax.inject:javax.inject:${libVersions.javaxInject}",
+        timber:                 "com.jakewharton.timber:timber:${libVersions.timber}",
+        gson:                   "com.google.code.gson:gson:${libVersions.gson}",
+        okHttp:                 "com.squareup.okhttp3:okhttp:${libVersions.okHttp}",
+        okHttpLogger:           "com.squareup.okhttp3:logging-interceptor:${libVersions.okHttp}",
+        retrofit:               "com.squareup.retrofit2:retrofit:${libVersions.retrofit}",
+        retrofitConverter:      "com.squareup.retrofit2:converter-gson:${libVersions.retrofit}",
+        retrofitAdapter:        "com.squareup.retrofit2:adapter-rxjava2:${libVersions.retrofit}",
+        rxBinding:              "com.jakewharton.rxbinding3:rxbinding:${libVersions.rxBinding}",
+        rxBindingCore:          "com.jakewharton.rxbinding3:rxbinding-core:${libVersions.rxBinding}",
+        rxBindingSwipeRefresh:  "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:${libVersions.rxBinding}",
+        rxBindingAppCompat:     "com.jakewharton.rxbinding3:rxbinding-appcompat:${libVersions.rxBinding}",
+        rxBindingMaterial:      "com.jakewharton.rxbinding3:rxbinding-material:${libVersions.rxBinding}",
+        archRuntime:            "androidx.lifecycle:lifecycle-runtime:${libVersions.lifecycle}",
+        archExtensions:         "androidx.lifecycle:lifecycle-extensions:${libVersions.lifecycle}",
+        archCompiler:           "androidx.lifecycle:lifecycle-compiler:${libVersions.lifecycle}",
+        viewmodel:              "androidx.lifecycle:lifecycle-viewmodel-ktx:${libVersions.lifecycle}",
+        glide:                  "com.github.bumptech.glide:glide:${libVersions.glide}",
+        glideCompiler:          "com.github.bumptech.glide:compiler:${libVersions.glide}",
+        navigationFragment:     "androidx.navigation:navigation-fragment-ktx:${libVersions.navigation}",
+        navigationUi:           "androidx.navigation:navigation-ui-ktx:${libVersions.navigation}",
+        material:               "com.google.android.material:material:${libVersions.material}"
+]
 
-    testDependencies = [
-            jUnit:          "junit:junit:${jUnitVersion}",
-            runner:         "androidx.test:runner:${runnerVersion}",
-            espressoCore:   "androidx.test.espresso:espresso-core:${espressoCoreVersion}",
-            kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
-            assertj:        "org.assertj:assertj-core:${assertJVersion}",
-            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
-            mockk:          "io.mockk:mockk:${mockkVersion}"
-    ]
-}
+def testingLibRepositories = [
+        jUnit:          "junit:junit:${testingLibVersions.jUnit}",
+        runner:         "androidx.test:runner:${testingLibVersions.runner}",
+        espressoCore:   "androidx.test.espresso:espresso-core:${testingLibVersions.espressoCore}",
+        kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${libVersions.kotlin}",
+        assertj:        "org.assertj:assertj-core:${testingLibVersions.assertJ}",
+        mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${testingLibVersions.mockitoKotlin}",
+        mockk:          "io.mockk:mockk:${testingLibVersions.mockk}",
+        testCore:       "androidx.test:core:${testingLibVersions.testCore}",
+        archCoreTesting:"androidx.arch.core:core-testing:${testingLibVersions.archCoreTesting}"
+]
+
+ext.androidVersions = androidSdkVersions
+ext.libraries = [dependencies: libRepositories]
+ext.testingLibraries = [testDependencies: testingLibRepositories]

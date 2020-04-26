@@ -1,0 +1,25 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+    }
+
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':app')
+    implementation project(':libraries:ui-components')
+
+    implementation libraries.dependencies.kotlin
+    implementation libraries.dependencies.appCompat
+    implementation libraries.dependencies.coreKtx
+    implementation libraries.dependencies.constraintLayout
+}

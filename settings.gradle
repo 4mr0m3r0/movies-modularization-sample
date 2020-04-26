@@ -1,1 +1,10 @@
-include ':app', ':core-remote', ':movies', ':core-testing', ':ui-kit', ':about', ':core-domain', ':core-presentation', ':core-navigation', ':login'
+include ':app'
+
+include ':features:about', ':features:openmovies'
+
+include ':core:mvi', ':core:remote', ':core:dagger'
+
+include ':libraries:ui-components', ':libraries:navigation'
+
+include ':common:testing', ':common:util'
+include ':core:execution'
