@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/findMoviesFragment"
-        android:name="com.tzion.featuresopenmovies.ui.find.FindMoviesFragment"
+        android:name="com.tzion.openmovies.ui.find.FindMoviesFragment"
         android:label="FindMoviesFragment"
         tools:layout="@layout/fragment_movies_find">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.tzion.featuresopenmovies.ui.detail.MovieDetailFragment"
+        android:name="com.tzion.openmovies.ui.detail.MovieDetailFragment"
         android:label="MovieDetailFragment"
         tools:layout="@layout/fragment_movies_detail" />
 </navigation>

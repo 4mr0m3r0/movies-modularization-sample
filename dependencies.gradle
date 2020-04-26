@@ -23,7 +23,8 @@ def libVersions = [
         rxBinding: '3.0.0',
         lifecycle: '2.2.0-alpha01',
         glide: '4.9.0',
-        navigation: '2.1.0'
+        navigation: '2.1.0',
+        material: '1.1.0'
 ]
 
 //Libraries for Testing
@@ -70,7 +71,8 @@ def libRepositories = [
         glide:                  "com.github.bumptech.glide:glide:${libVersions.glide}",
         glideCompiler:          "com.github.bumptech.glide:compiler:${libVersions.glide}",
         navigationFragment:     "androidx.navigation:navigation-fragment-ktx:${libVersions.navigation}",
-        navigationUi:           "androidx.navigation:navigation-ui-ktx:${libVersions.navigation}"
+        navigationUi:           "androidx.navigation:navigation-ui-ktx:${libVersions.navigation}",
+        material:               "com.google.android.material:material:${libVersions.material}"
 ]
 
 def testingLibRepositories = [
