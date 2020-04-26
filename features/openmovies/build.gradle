@@ -26,12 +26,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':app')
-    implementation project(':core-presentation')
-    implementation project(':ui-kit')
-    implementation project(':core-navigation')
-    implementation project(':core-testing')
-    implementation project(':core-remote')
-    implementation project(':core-dagger')
+    implementation project(':core:mvi')
+    implementation project(':libraries:ui-components')
+    implementation project(':libraries:navigation')
+    implementation project(':common:util')
+    implementation project(':common:testing')
+    implementation project(':core:remote')
+    implementation project(':core:dagger')
+    implementation project(':core:execution')
 
     implementation libraries.dependencies.kotlin
     implementation libraries.dependencies.appCompat
@@ -55,6 +57,7 @@ dependencies {
     annotationProcessor libraries.dependencies.glideCompiler
     implementation libraries.dependencies.navigationFragment
     implementation libraries.dependencies.navigationUi
+    implementation libraries.dependencies.timber
 
     testImplementation testingLibraries.testDependencies.jUnit
     testImplementation testingLibraries.testDependencies.mockitoKotlin
