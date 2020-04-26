@@ -2,8 +2,8 @@ package com.tzion.openmovies.ui.di
 
 import com.tzion.remote.RetrofitWebServiceFactory
 import com.tzion.openmovies.data.remote.RemoteImpl
-import com.tzion.openmovies.data.remote.RetrofitWebService
-import com.tzion.openmovies.data.remote.constant.WebServiceUrl
+import com.tzion.openmovies.data.remote.retrofit.WebServiceRetrofit
+import com.tzion.openmovies.data.remote.config.WebServiceConfig
 import com.tzion.openmovies.data.source.Remote
 import dagger.Binds
 import dagger.Module
@@ -16,11 +16,11 @@ abstract class RemoteModule {
     companion object {
         @Provides
         @JvmStatic
-        fun providesRetrofitWebService(): RetrofitWebService =
-            RetrofitWebServiceFactory<RetrofitWebService>().create(
+        fun providesRetrofitWebService(): WebServiceRetrofit =
+            RetrofitWebServiceFactory<WebServiceRetrofit>().create(
                 isDebug = true,
-                tClass = RetrofitWebService::class.java,
-                baseUrl = WebServiceUrl.BASE_URL
+                tClass = WebServiceRetrofit::class.java,
+                baseUrl = WebServiceConfig.BASE_URL
             )
     }
 

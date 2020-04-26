@@ -7,12 +7,13 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.tzion.testing.RandomFactory
 import com.tzion.openmovies.factory.SearchFactory.makeRemoteSearch
 import com.tzion.openmovies.data.remote.model.RemoteSearch
+import com.tzion.openmovies.data.remote.retrofit.WebServiceRetrofit
 import io.reactivex.Single
 import org.junit.Test
 
 class RemoteImplTest {
 
-    private val retrofitWebService = mock<RetrofitWebService>()
+    private val retrofitWebService = mock<WebServiceRetrofit>()
     private val remoteImpl = RemoteImpl(retrofitWebService)
 
     @Test

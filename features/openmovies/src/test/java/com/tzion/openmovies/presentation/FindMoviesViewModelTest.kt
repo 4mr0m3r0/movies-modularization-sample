@@ -2,8 +2,8 @@ package com.tzion.openmovies.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.*
-import com.tzion.mvi.execution.ExecutionThreadEnvironment
-import com.tzion.mvi.execution.ExecutionThreadFactory
+import com.tzion.execution.ExecutionThreadEnvironment
+import com.tzion.execution.ExecutionThreadFactory
 import com.tzion.testing.RandomFactory
 import com.tzion.openmovies.factory.MovieFactory.makeDomainMovie
 import com.tzion.openmovies.domain.FindMoviesByNameUseCase
