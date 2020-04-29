@@ -1,11 +1,9 @@
 pipeline {
 
+    agent { label 'android-jenkins' }
+
     options {
         timeout(time: 60, unit: 'MINUTES')
-    }
-
-    tools {
-        jdk 'Oracle JDK 1.8'
     }
 
     parameters {
