@@ -1,6 +1,9 @@
 
 Modularization Sample 
 =====================
+![State](https://img.shields.io/badge/kotlin-v1.4.10-blueviolet)
+![State](https://img.shields.io/badge/gradle-v6.5-blue)
+
 ## 🚧 👷🏗️ Work in Progress 🔨👷 🚧
 This is a Modularization project sample that combines Dynamic Features, Clean Architecture, Model View Intent (MVI)
 with Kotlin Flow (working), Jetpack Navigation, Dagger, Retrofit, Room (working), Dynamic Navigator library (working)

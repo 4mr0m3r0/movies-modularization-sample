@@ -3,13 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion androidVersions.androidCompileSdk
 
     defaultConfig {
-        minSdkVersion androidVersions.androidMinSdk
-        targetSdkVersion androidVersions.androidTargetSdk
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -23,11 +18,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation libraries.dependencies.kotlin
-    implementation libraries.dependencies.rxKotlin
-    implementation libraries.dependencies.rxAndroid
+    implementation rootProject.kotlin
+    implementation rootProject.rxKotlin
+    implementation rootProject.rxAndroid
 
-    testImplementation testingLibraries.testDependencies.jUnit
-    testImplementation testingLibraries.testDependencies.mockitoKotlin
+    testImplementation rootProject.jUnit
+    testImplementation rootProject.mockitoKotlin
 }

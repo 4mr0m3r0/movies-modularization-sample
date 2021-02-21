@@ -4,12 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion androidVersions.androidCompileSdk
+
+    compileSdkVersion rootProject.androidCompileSdkVersion
 
     defaultConfig {
         applicationId "com.tzion.android"
-        minSdkVersion androidVersions.androidMinSdk
-        targetSdkVersion androidVersions.androidTargetSdk
+        minSdkVersion rootProject.androidMinSdkVersion
+        targetSdkVersion rootProject.androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,21 +34,20 @@ dependencies {
     implementation project(':libraries:ui-components')
     implementation project(':libraries:navigation')
 
-    implementation libraries.dependencies.kotlin
-    implementation libraries.dependencies.appCompat
-    implementation libraries.dependencies.coreKtx
-    implementation libraries.dependencies.constraintLayout
-    implementation libraries.dependencies.dagger
-    implementation libraries.dependencies.daggerAndroid
-    implementation libraries.dependencies.daggerSupport
-    kapt libraries.dependencies.daggerCompiler
-    kapt libraries.dependencies.daggerProcessor
-    implementation libraries.dependencies.rxKotlin
-    implementation libraries.dependencies.rxAndroid
-    implementation libraries.dependencies.javaxInject
-    implementation libraries.dependencies.timber
+    api rootProject.appCompat
+    api rootProject.coreKtx
+    api rootProject.constraintLayout
+    api rootProject.kotlin
+    implementation rootProject.dagger
+    implementation rootProject.daggerAndroid
+    implementation rootProject.daggerSupport
+    kapt rootProject.daggerCompiler
+    kapt rootProject.daggerProcessor
+    implementation rootProject.rxKotlin
+    implementation rootProject.rxAndroid
+    implementation rootProject.timber
 
-    testImplementation testingLibraries.testDependencies.jUnit
-    androidTestImplementation testingLibraries.testDependencies.runner
-    androidTestImplementation testingLibraries.testDependencies.espressoCore
+    testImplementation rootProject.jUnit
+    androidTestImplementation rootProject.runner
+    androidTestImplementation rootProject.espressoCore
 }

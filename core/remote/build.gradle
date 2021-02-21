@@ -1,20 +1,16 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation libraries.dependencies.kotlin
-    implementation libraries.dependencies.okHttp
-    implementation libraries.dependencies.okHttpLogger
-    implementation libraries.dependencies.retrofit
-    implementation libraries.dependencies.retrofitConverter
-    implementation libraries.dependencies.retrofitAdapter
-    implementation libraries.dependencies.gson
-    implementation libraries.dependencies.rxKotlin
+    implementation rootProject.kotlin
+    implementation rootProject.okHttp
+    implementation rootProject.okHttpLogger
+    implementation rootProject.retrofit
+    implementation rootProject.retrofitConverter
+    implementation rootProject.retrofitAdapter
+    implementation rootProject.gson
+    implementation rootProject.rxKotlin
 
 
-    testImplementation testingLibraries.testDependencies.kotlinJUnit
-    testImplementation testingLibraries.testDependencies.mockitoKotlin
+    testImplementation rootProject.kotlinJUnit
+    testImplementation rootProject.mockitoKotlin
 }
-
-sourceCompatibility = "7"
-targetCompatibility = "7"
