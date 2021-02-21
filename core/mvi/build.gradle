@@ -21,8 +21,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.kotlin
-    implementation rootProject.rxKotlin
-    implementation rootProject.rxAndroid
+    implementation rootProject.coroutinesCore
+    implementation rootProject.coroutinesAndroid
 
     testImplementation rootProject.kotlinJUnit
 }

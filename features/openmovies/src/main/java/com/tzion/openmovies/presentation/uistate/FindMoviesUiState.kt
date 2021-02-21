@@ -1,18 +1,22 @@
 package com.tzion.openmovies.presentation.uistate
 
+import com.tzion.mvi.events.MviUiState
 import com.tzion.openmovies.presentation.model.UiMovie
 
-sealed class FindMoviesUiState(val isLoading: Boolean,
-                               val withSearchInstructions: Boolean,
-                               val thereAreNotMoviesMatches: Boolean,
-                               val movies: List<UiMovie>,
-                               val withError: Boolean,
-                               val errorMessage: String) {
+sealed class FindMoviesUiState(
+    val isLoading: Boolean,
+    val withSearchInstructions: Boolean,
+    val thereAreNotMoviesMatches: Boolean,
+    val movies: List<UiMovie>,
+    val withError: Boolean,
+    val errorMessage: String
+) : MviUiState {
+
     companion object {
         const val DEFAULT_ERROR_MSG = ""
     }
 
-    object Default : FindMoviesUiState(
+    object DefaultUiState : FindMoviesUiState(
         isLoading = false,
         withSearchInstructions = true,
         thereAreNotMoviesMatches = false,
@@ -21,7 +25,7 @@ sealed class FindMoviesUiState(val isLoading: Boolean,
         errorMessage = DEFAULT_ERROR_MSG
     )
 
-    object Loading : FindMoviesUiState(
+    object LoadingUiState : FindMoviesUiState(
         isLoading = true,
         withSearchInstructions = false,
         thereAreNotMoviesMatches = false,
@@ -30,7 +34,7 @@ sealed class FindMoviesUiState(val isLoading: Boolean,
         errorMessage = DEFAULT_ERROR_MSG
     )
 
-    object EmptyList : FindMoviesUiState(
+    object EmptyListUiState : FindMoviesUiState(
         isLoading = false,
         withSearchInstructions = false,
         thereAreNotMoviesMatches = true,
@@ -39,7 +43,7 @@ sealed class FindMoviesUiState(val isLoading: Boolean,
         errorMessage = DEFAULT_ERROR_MSG
     )
 
-    data class Success(private val presentationMovies: List<UiMovie>) : FindMoviesUiState(
+    data class SuccessUiState(private val presentationMovies: List<UiMovie>) : FindMoviesUiState(
         isLoading = false,
         withSearchInstructions = false,
         thereAreNotMoviesMatches = false,
@@ -48,7 +52,7 @@ sealed class FindMoviesUiState(val isLoading: Boolean,
         errorMessage = DEFAULT_ERROR_MSG
     )
 
-    data class Error(private val error: String) : FindMoviesUiState(
+    data class ErrorUiState(private val error: String) : FindMoviesUiState(
         isLoading = false,
         withSearchInstructions = false,
         thereAreNotMoviesMatches = false,

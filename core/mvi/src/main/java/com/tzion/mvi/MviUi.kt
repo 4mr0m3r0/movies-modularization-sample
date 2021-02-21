@@ -1,10 +1,12 @@
 package com.tzion.mvi
 
-import io.reactivex.Observable
+import com.tzion.mvi.events.MviUiState
+import com.tzion.mvi.events.MviUserIntent
+import kotlinx.coroutines.flow.Flow
 
-interface MviUi<TIntent, in TUiState> {
+interface MviUi<TUserIntent: MviUserIntent, in TUiState: MviUiState> {
 
-    fun userIntents(): Observable<TIntent>
+    fun userIntents(): Flow<TUserIntent>
 
     fun renderUiStates(uiState: TUiState)
 

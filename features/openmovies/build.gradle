@@ -26,16 +26,13 @@ dependencies {
     implementation project(':common:testing')
     implementation project(':core:remote')
     implementation project(':core:dagger')
-    implementation project(':core:execution')
 
     implementation rootProject.okHttp
     implementation rootProject.okHttpLogger
     implementation rootProject.retrofit
     implementation rootProject.retrofitConverter
-    implementation rootProject.retrofitAdapter
-    implementation rootProject.gson
-    implementation rootProject.rxKotlin
-    implementation rootProject.rxAndroid
+    implementation rootProject.coroutinesCore
+    implementation rootProject.coroutinesAndroid
     implementation rootProject.dagger
     kapt rootProject.daggerCompiler
     implementation rootProject.archRuntime

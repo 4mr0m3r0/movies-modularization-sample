@@ -1,6 +1,8 @@
 package com.tzion.openmovies.presentation.action
 
-sealed class FindMoviesAction {
+import com.tzion.mvi.events.MviAction
+
+sealed class FindMoviesAction : MviAction {
 
     data class FindMoviesByTextAction(val queryText: String): FindMoviesAction()
 

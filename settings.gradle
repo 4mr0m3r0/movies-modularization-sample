@@ -7,4 +7,3 @@ include ':core:mvi', ':core:remote', ':core:dagger'
 include ':libraries:ui-components', ':libraries:navigation'
 
 include ':common:testing', ':common:util'
-include ':core:execution'

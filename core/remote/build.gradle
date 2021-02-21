@@ -1,15 +1,12 @@
 apply plugin: 'kotlin'
 
 dependencies {
+
     implementation rootProject.kotlin
     implementation rootProject.okHttp
     implementation rootProject.okHttpLogger
     implementation rootProject.retrofit
     implementation rootProject.retrofitConverter
-    implementation rootProject.retrofitAdapter
-    implementation rootProject.gson
-    implementation rootProject.rxKotlin
-
 
     testImplementation rootProject.kotlinJUnit
 }

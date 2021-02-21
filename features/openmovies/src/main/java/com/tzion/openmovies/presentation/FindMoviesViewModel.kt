@@ -1,6 +1,5 @@
 package com.tzion.openmovies.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,17 +14,32 @@ import com.tzion.openmovies.presentation.result.FindMoviesResult
 import com.tzion.openmovies.presentation.result.FindMoviesResult.*
 import com.tzion.openmovies.presentation.uistate.FindMoviesUiState
 import com.tzion.openmovies.presentation.userintent.FindMoviesUserIntent
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.subjects.PublishSubject
+import com.tzion.openmovies.presentation.userintent.FindMoviesUserIntent.SearchFilterUserIntent
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class FindMoviesViewModel @Inject constructor(
-    private val findMoviesActionProcessor: FindMoviesActionProcessor,
-    private val uiMovieMapper: UiMovieMapper)
-    : ViewModel(), MviPresentation<FindMoviesUserIntent, FindMoviesUiState> {
+    private val processor: FindMoviesActionProcessor,
+    private val uiMovieMapper: UiMovieMapper
+) : ViewModel(), MviPresentation<FindMoviesUserIntent, FindMoviesUiState> {
+
+    private val defaultUiState: FindMoviesUiState = FindMoviesUiState.Default
+    private val stateFlow: MutableStateFlow<FindMoviesUiState> = MutableStateFlow(defaultUiState)
+
+    override fun processUserIntents(userIntents: Flow<FindMoviesUserIntent>) {
+        userIntents
+            .buffer()
+            .flatMapMerge { userIntent ->
+                processor.actionProcessor(userIntent.toAction())
+            }
+            .scan(defaultUiState) { previousUiState, result ->
+
+            }
+    }
+
+    private fun FindMoviesUserIntent.toAction(): FindMoviesAction = when (this) {
+        is SearchFilterUserIntent -> FindMoviesByTextAction(queryText)
+    }
 
     private val userIntentsSubject: PublishSubject<FindMoviesUserIntent> = PublishSubject.create()
     private val disposable = CompositeDisposable()
@@ -41,7 +55,7 @@ class FindMoviesViewModel @Inject constructor(
 
     private fun transformUserIntentIntoActions(userIntent: FindMoviesUserIntent): FindMoviesAction =
         when (userIntent) {
-            is FindMoviesUserIntent.SearchFilterUserIntent -> FindMoviesByTextAction(userIntent.queryText)
+            is SearchFilterUserIntent -> FindMoviesByTextAction(userIntent.queryText)
         }
 
     private val reducer: BiFunction<FindMoviesUiState, FindMoviesResult, FindMoviesUiState>
@@ -77,9 +91,7 @@ class FindMoviesViewModel @Inject constructor(
         disposable += uiStatesObservable.subscribe(liveDataUiStates::setValue) { }
     }
 
-    override fun processUserIntents(userIntents: Observable<FindMoviesUserIntent>) {
-        userIntents.subscribe(userIntentsSubject)
-    }
+
 
     override fun uiStates(): Observable<FindMoviesUiState> = uiStatesObservable
 

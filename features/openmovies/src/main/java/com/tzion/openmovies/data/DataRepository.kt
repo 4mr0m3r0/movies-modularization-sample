@@ -4,7 +4,7 @@ import com.tzion.openmovies.data.mapper.DataMovieMapper
 import com.tzion.openmovies.data.source.DataSourceFactory
 import com.tzion.openmovies.domain.Repository
 import com.tzion.openmovies.domain.model.DomainMovie
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(
@@ -12,7 +12,7 @@ class DataRepository @Inject constructor(
     private val dataDataMovieMapper: DataMovieMapper
 ): Repository {
 
-    override fun findMoviesByText(text: String?): Single<List<DomainMovie>> = factory
+    override fun findMoviesByText(text: String?): Flow<List<DomainMovie>> = factory
         .getRemote()
         .findMoviesByText(text)
         .map { remoteSearch ->

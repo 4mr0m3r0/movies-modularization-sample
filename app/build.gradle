@@ -43,8 +43,6 @@ dependencies {
     implementation rootProject.daggerSupport
     kapt rootProject.daggerCompiler
     kapt rootProject.daggerProcessor
-    implementation rootProject.rxKotlin
-    implementation rootProject.rxAndroid
     implementation rootProject.timber
 
     testImplementation rootProject.kotlinJUnit
