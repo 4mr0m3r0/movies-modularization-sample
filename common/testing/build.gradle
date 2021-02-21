@@ -30,5 +30,5 @@ dependencies {
     implementation rootProject.coreKtx
     implementation rootProject.kotlin
 
-    testImplementation rootProject.jUnit
+    testImplementation rootProject.kotlinJUnit
 }

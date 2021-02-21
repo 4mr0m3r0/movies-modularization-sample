@@ -12,5 +12,4 @@ dependencies {
 
 
     testImplementation rootProject.kotlinJUnit
-    testImplementation rootProject.mockitoKotlin
 }

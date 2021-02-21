@@ -47,7 +47,7 @@ dependencies {
     implementation rootProject.rxAndroid
     implementation rootProject.timber
 
-    testImplementation rootProject.jUnit
+    testImplementation rootProject.kotlinJUnit
     androidTestImplementation rootProject.runner
     androidTestImplementation rootProject.espressoCore
 }

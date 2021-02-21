@@ -47,8 +47,7 @@ dependencies {
     implementation rootProject.navigationUi
     implementation rootProject.timber
 
-    testImplementation rootProject.jUnit
-    testImplementation rootProject.mockitoKotlin
+    testImplementation rootProject.kotlinJUnit
     testImplementation rootProject.mockk
     testImplementation rootProject.testCore
     testImplementation rootProject.archCoreTesting

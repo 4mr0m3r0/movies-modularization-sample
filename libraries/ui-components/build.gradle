@@ -24,7 +24,7 @@ dependencies {
     implementation rootProject.constraintLayout
     implementation rootProject.material
 
-    testImplementation rootProject.jUnit
+    testImplementation rootProject.kotlinJUnit
     androidTestImplementation rootProject.runner
     androidTestImplementation rootProject.espressoCore
 }

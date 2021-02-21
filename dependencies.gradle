@@ -11,32 +11,30 @@ ext {
     googleServiceVersion = '4.3.3'
 
     // Versions
-    appCompatVersion = '1.1.0'
-    constraintLayoutVersion = '1.1.3'
-    coreKtxVersion = '1.1.0'
-    daggerVersion = '2.24'
-    glideVersion = '4.9.0'
-    gsonVersion = '2.8.5'
-    materialVersion = '1.1.0'
-    navigationVersion = '2.3.0'
-    okHttpVersion = '4.1.0'
+    appCompatVersion = '1.2.0'
+    constraintLayoutVersion = '2.0.4'
+    coreKtxVersion = '1.3.2'
+    daggerVersion = '2.32'
+    glideVersion = '4.12.0'
+    gsonVersion = '2.8.6'
+    materialVersion = '1.3.0'
+    navigationVersion = '2.3.3'
+    okHttpVersion = '4.9.0'
     rxJavaVersion = '2.2.11'
     rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.1.1'
-    retrofitVersion = '2.6.1'
+    retrofitVersion = '2.9.0'
     timberVersion = '4.7.1'
     rxBindingVersion = '3.0.0'
     lifecycleVersion = '2.2.0-alpha01'
 
     // Testing Versions
     extJUnitVersion = '1.1.1'
-    jUnitVersion = '4.12'
-    runnerVersion = '1.2.0'
-    espressoCoreVersion = '3.2.0'
-    assertJVersion = '3.11.2'
-    mockitoKotlinVersion = '2.2.0'
-    mockkVersion = '1.9.3'
-    testCoreVersion = '1.0.0'
+    jUnitVersion = '4.13.1'
+    runnerVersion = '1.3.0'
+    espressoCoreVersion = '3.3.0'
+    mockkVersion = '1.10.6'
+    testCoreVersion = '1.3.0'
     archCoreTestingVersion = '2.1.0'
 
     //Tools
@@ -82,13 +80,10 @@ ext {
 
     //Testing Dependencies
     extJUnit = "androidx.test.ext:junit:$extJUnitVersion"
-    jUnit = "junit:junit:$jUnitVersion"
 
     runner = "androidx.test:runner:$runnerVersion"
     espressoCore = "androidx.test.espresso:espresso-core:$espressoCoreVersion"
     kotlinJUnit = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
-    assertj = "org.assertj:assertj-core:$assertJVersion"
-    mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     mockk = "io.mockk:mockk:$mockkVersion"
     testCore = "androidx.test:core:$testCoreVersion"
     archCoreTesting = "androidx.arch.core:core-testing:$archCoreTestingVersion"
