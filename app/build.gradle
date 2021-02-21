@@ -20,7 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dynamicFeatures = [":features:about", ":features:openmovies"]
+    dynamicFeatures = [":features:about", ":features:openmovies", ':features:toptrending']
 
     dataBinding {
         enabled true

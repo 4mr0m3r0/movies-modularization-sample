@@ -1,7 +1,9 @@
 
-Modularization Sample
+Modularization Sample 
 =====================
-This is a Modularization sample that combines together Dynamic Features, Clean Architecture, Model View Intent (MVI), Repository, ViewModel, LiveData, RxJava - RxKotlin, Jetpack Navigation, Dagger, Retrofit, Room (coming soon), Dynamic Navigator library (coming soon)
+## 🚧 👷🏗️ Work in Progress 🔨👷 🚧
+This is a Modularization project sample that combines Dynamic Features, Clean Architecture, Model View Intent (MVI)
+with Kotlin Flow (working), Jetpack Navigation, Dagger, Retrofit, Room (working), Dynamic Navigator library (working)
 
 First of all
 ------------
@@ -39,7 +41,7 @@ Architecture
 This is an approach of Clean Architecture by features <br/>
 
 ![Architecture Diagram](screenshots/architecture-diagram.png "Architecture Diagram")
-_____
+
 ### Clean Architecture
 ![Clean Architecture](screenshots/clean-architecture.jpg "Clean Architecture")
 ![Feature Architecture Diagram](screenshots/feature-architecture-diagram.png "Feature Architecture Diagram")

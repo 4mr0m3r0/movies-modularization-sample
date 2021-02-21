@@ -2,4 +2,5 @@
     <string name="app_name">movies mvi</string>
     <string name="title_about">About</string>
     <string name="title_featuresopenmovies">Open Movies</string>
+    <string name="title_toptrending">Top Trending</string>
 </resources>
