@@ -35,7 +35,6 @@ A browser of movies
 ![Loading](screenshots/loading.png "Loading")
 ![Multiple Results](screenshots/multiple-results.png "Multiple Results")
 ![Single Result](screenshots/single-result.png "Single Result")
-![Empty](screenshots/empty.png "Empty")
 ![To many results](screenshots/error-too-many-results.png "Too many results")
 ![No network](screenshots/error-no-network.png "No network")
 
