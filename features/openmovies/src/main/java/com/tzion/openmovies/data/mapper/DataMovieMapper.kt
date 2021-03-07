@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class DataMovieMapper @Inject constructor() {
 
-    fun RemoteMovie.fromRemoteToDomain() = DomainMovie(
+    fun RemoteMovie.toDomain() = DomainMovie(
         movieId = imdbId,
         title = title,
         year = year,

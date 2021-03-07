@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class UiMovieMapper @Inject constructor() {
 
-    fun DomainMovie.fromDomainToUi() = UiMovie(
+    fun DomainMovie.toUi() = UiMovie(
         movieId = movieId ?: DefaultValues.emptyString(),
         title = title ?: DefaultValues.emptyString(),
         year = year ?: DefaultValues.emptyString(),

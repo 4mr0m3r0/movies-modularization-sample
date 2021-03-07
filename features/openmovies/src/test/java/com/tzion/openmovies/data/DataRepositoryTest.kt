@@ -1,31 +1,30 @@
 package com.tzion.openmovies.data
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
-import com.tzion.openmovies.factory.MovieFactory.makeDomainMovie
-import com.tzion.openmovies.factory.SearchFactory.makeRemoteSearch
 import com.tzion.openmovies.data.mapper.DataMovieMapper
 import com.tzion.openmovies.data.remote.model.RemoteMovie
 import com.tzion.openmovies.data.remote.model.RemoteSearch
-import com.tzion.openmovies.data.source.DataSourceFactory
 import com.tzion.openmovies.data.source.Remote
 import com.tzion.openmovies.domain.model.DomainMovie
+import com.tzion.openmovies.factory.MovieFactory.makeDomainMovie
+import com.tzion.openmovies.factory.SearchFactory.makeRemoteSearch
+import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
-import io.reactivex.Single
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class DataRepositoryTest {
 
-    private val remote = mock<Remote>()
-    private val factory = DataSourceFactory(remote)
+    private val remote = mockk<Remote>()
     private val dataMovieMapper = mockk<DataMovieMapper>()
-    private val dataRepository = DataRepository(factory, dataMovieMapper)
+    private val dataRepository = DataRepository(remote, dataMovieMapper)
 
     @Test
-    fun `given remote movies list, when findMoviesByText, then return domain movies list`() {
+    fun `given remote movies list, when findMoviesByText, then return domain movies list`() = runBlocking {
         val remoteSearch = makeRemoteSearch(5)
-        stubRemoteFindMoviesByText(Single.just(remoteSearch))
+        stubRemoteFindMoviesByText(remoteSearch)
         val domainMovies = mutableListOf<DomainMovie>()
         remoteSearch.search.forEach { remoteMovie ->
             val domainMovie = makeDomainMovie()
@@ -34,18 +33,20 @@ class DataRepositoryTest {
         }
 
 
-        val testObserver = dataRepository.findMoviesByText(com.tzion.testing.RandomFactory.generateString()).test()
+        val resultFlow = dataRepository.findMoviesByText(com.tzion.testing.RandomFactory.generateString())
 
-        testObserver.assertValue(domainMovies)
+        resultFlow.collect {  resultMovies ->
+            assertEquals(domainMovies, resultMovies, "movies")
+        }
     }
 
-    private fun stubRemoteFindMoviesByText(single: Single<RemoteSearch>) {
-        whenever(remote.findMoviesByText(any())).thenReturn(single)
+    private fun stubRemoteFindMoviesByText(remoteSearch: RemoteSearch) {
+        coEvery { remote.findMoviesByText(any()) } returns remoteSearch
     }
 
     private fun stubDataMovieMapper(remoteMovie: RemoteMovie, domainMovie: DomainMovie) {
         with(dataMovieMapper) {
-            io.mockk.every { remoteMovie.fromRemoteToDomain() } returns domainMovie
+            every { remoteMovie.toDomain() } returns domainMovie
         }
     }
 

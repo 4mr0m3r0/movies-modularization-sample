@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tzion.dagger.ViewModelFactory
 import com.tzion.dagger.ViewModelKey
-import com.tzion.execution.ExecutionThread
-import com.tzion.execution.ExecutionThreadEnvironment
-import com.tzion.execution.ExecutionThreadFactory
+import com.tzion.mvi.execution.ExecutionThread
+import com.tzion.mvi.execution.ExecutionThreadEnvironment
+import com.tzion.mvi.execution.ExecutionThreadFactory
 import com.tzion.openmovies.presentation.FindMoviesViewModel
 import dagger.Binds
 import dagger.Module

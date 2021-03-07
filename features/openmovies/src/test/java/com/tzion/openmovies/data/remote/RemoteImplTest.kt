@@ -1,54 +1,44 @@
 package com.tzion.openmovies.data.remote
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
-import com.tzion.testing.RandomFactory
-import com.tzion.openmovies.factory.SearchFactory.makeRemoteSearch
 import com.tzion.openmovies.data.remote.model.RemoteSearch
 import com.tzion.openmovies.data.remote.retrofit.WebServiceRetrofit
-import io.reactivex.Single
+import com.tzion.openmovies.factory.SearchFactory.makeRemoteSearch
+import com.tzion.testing.RandomFactory
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class RemoteImplTest {
 
-    private val retrofitWebService = mock<WebServiceRetrofit>()
+    private val retrofitWebService = mockk<WebServiceRetrofit>()
     private val remoteImpl = RemoteImpl(retrofitWebService)
 
     @Test
-    fun `given text as param, when findMoviesByText, then complete`() {
-        val text = RandomFactory.generateString()
-        stubGetMovies(Single.just(makeRemoteSearch(5)), text)
-
-        val testObserver = remoteImpl.findMoviesByText(text).test()
-
-        testObserver.assertComplete()
-    }
-
-    @Test
-    fun `given text as param, when findMoviesByText, then return data`() {
+    fun `given text as param, when findMoviesByText, then return data`() = runBlocking {
         val text = RandomFactory.generateString()
         val remoteSearch = makeRemoteSearch(5)
-        stubGetMovies(Single.just(remoteSearch), text)
+        stubGetMovies(remoteSearch, text)
 
-        val testObserver = remoteImpl.findMoviesByText(text).test()
+        val remoteSearchResult = remoteImpl.findMoviesByText(text)
 
-        testObserver.assertValue(remoteSearch)
+        assertEquals(remoteSearch, remoteSearchResult, "remote Search")
     }
 
     @Test
-    fun `given text as param, when findMoviesByText, then call to getMovies`() {
+    fun `given text as param, when findMoviesByText, then call to getMovies`() = runBlocking {
         val text = RandomFactory.generateString()
-        stubGetMovies(Single.just(makeRemoteSearch(5)), text)
+        stubGetMovies(makeRemoteSearch(5), text)
 
-        remoteImpl.findMoviesByText(text).test()
+        remoteImpl.findMoviesByText(text)
 
-        verify(retrofitWebService, times(1)).getMovies(text)
+        coVerify (atMost = 1) { retrofitWebService.getMovies(text) }
     }
 
-    private fun stubGetMovies(single: Single<RemoteSearch>, text: String) {
-        whenever(retrofitWebService.getMovies(text)).thenReturn(single)
+    private fun stubGetMovies(remoteSearch: RemoteSearch, text: String) {
+        coEvery { retrofitWebService.getMovies(text) } returns remoteSearch
     }
 
 }

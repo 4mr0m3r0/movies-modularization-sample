@@ -2,12 +2,14 @@ package com.tzion.openmovies.ui.find
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,18 +20,21 @@ import com.tzion.openmovies.databinding.FragmentMoviesFindBinding
 import com.tzion.openmovies.presentation.FindMoviesViewModel
 import com.tzion.openmovies.presentation.model.UiMovie
 import com.tzion.openmovies.presentation.uistate.FindMoviesUiState
+import com.tzion.openmovies.presentation.uistate.FindMoviesUiState.*
 import com.tzion.openmovies.presentation.userintent.FindMoviesUserIntent
-import com.tzion.openmovies.presentation.userintent.FindMoviesUserIntent.*
+import com.tzion.openmovies.presentation.userintent.FindMoviesUserIntent.SearchFilterUserIntent
 import com.tzion.openmovies.ui.di.DaggerOpenMoviesComponent
-import com.tzion.util.DefaultValues
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiState> {
 
-    private val searchFilterIntentPublisher = PublishSubject.create<SearchFilterUserIntent>()
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val findMoviesViewModel: FindMoviesViewModel? by lazy {
         ViewModelProviders
@@ -37,7 +42,8 @@ class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiSt
             .get(FindMoviesViewModel::class.java)
     }
     @Inject lateinit var findMoviesAdapter: FindMoviesAdapter
-    private lateinit var binding: FragmentMoviesFindBinding
+    private var binding: FragmentMoviesFindBinding? = null
+    private val userIntents = MutableSharedFlow<SearchFilterUserIntent>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,85 +55,81 @@ class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiSt
         DaggerOpenMoviesComponent.factory().create(appComponent).inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        subscribeUiStatesAndProcessUserIntents()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        if (binding == null) {
+            binding = FragmentMoviesFindBinding.inflate(inflater, container, false)
+        }
+        return binding?.root
     }
 
-    private fun subscribeUiStatesAndProcessUserIntents() {
-        findMoviesViewModel?.processUserIntents(userIntents())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeUiStatesAndSetUpUserIntents()
+        setUpRecyclerView()
+        setupMenuListeners()
+    }
+
+    private fun observeUiStatesAndSetUpUserIntents() {
         observeUiStates()
+        setupUserIntents()
     }
-
-    override fun userIntents(): Observable<FindMoviesUserIntent> {
-        return searchFilterIntent().cast(FindMoviesUserIntent::class.java)
-    }
-
-    private fun searchFilterIntent(): Observable<SearchFilterUserIntent> = searchFilterIntentPublisher
 
     private fun observeUiStates() {
         findMoviesViewModel
-            ?.liveData()
-            ?.observe(this, Observer { uiState ->
-                uiState?.let { renderUiStates(it) }
-            })
+            ?.uiStates()
+            ?.onEach { uiStates -> renderUiStates(uiStates) }
+            ?.launchIn(lifecycleScope)
     }
 
     override fun renderUiStates(uiState: FindMoviesUiState) {
-        setScreenForLoading(uiState.isLoading)
-        setScreenForInstructions(uiState.withSearchInstructions)
-        setScreenForError(uiState.withError, uiState.errorMessage)
-        setScreenForDisplayMovies(uiState.movies, uiState.thereAreNotMoviesMatches)
-    }
-
-    private fun setScreenForLoading(isLoading: Boolean) {
-        binding.apply {
-            if (isLoading) {
-                pbDisplayMovies.visibility = View.VISIBLE
-            } else {
-                pbDisplayMovies.visibility = View.GONE
-            }
+        resetUi()
+        when (uiState) {
+            DefaultUiState       -> setScreenForDefault()
+            LoadingUiState       -> setScreenForLoading()
+            EmptyListUiState     -> setScreenForEmptyList()
+            is ShowMoviesUiState -> setScreenForDisplayMovies(uiState.movies)
+            is FailureUiState    -> setScreenForError(uiState.error)
         }
     }
 
-    private fun setScreenForInstructions(withSearchInstructions: Boolean) {
-        binding.apply {
-            if (withSearchInstructions) {
-                acivSearchDisplayMovies.visibility = View.VISIBLE
-                tvInstructions.visibility = View.VISIBLE
-            } else {
-                acivSearchDisplayMovies.visibility = View.GONE
-                tvInstructions.visibility = View.GONE
-            }
+    private fun resetUi() {
+        binding?.apply {
+            pbDisplayMovies.visibility = View.GONE
+            ivError.visibility = View.GONE
+            tvError.visibility = View.GONE
+            rvDisplayMovies.visibility = View.GONE
+            ivEmptyList.visibility = View.GONE
+            tvEmptyList.visibility = View.GONE
+            acivSearchDisplayMovies.visibility = View.GONE
+            tvInstructions.visibility = View.GONE
         }
     }
 
-    private fun setScreenForError(thereIsAnError: Boolean, errorMessage: String) {
-        binding.apply {
-            if (thereIsAnError) {
-                ivError.visibility = View.VISIBLE
-                tvError.text = getString(R.string.something_went_wrong, errorMessage)
-                tvError.visibility = View.VISIBLE
-            } else {
-                ivError.visibility = View.GONE
-                tvError.visibility = View.GONE
-            }
+    private fun setScreenForDefault() {
+        binding?.apply {
+            acivSearchDisplayMovies.visibility = View.VISIBLE
+            tvInstructions.visibility = View.VISIBLE
         }
     }
 
-    private fun setScreenForDisplayMovies(movies: List<UiMovie>,
-                                          thereAreNotMoviesMatches: Boolean) {
-        binding.apply {
-            if (thereAreNotMoviesMatches) {
-                ivEmptyList.visibility = View.VISIBLE
-                tvEmptyList.visibility = View.VISIBLE
-                rvDisplayMovies.visibility = View.GONE
-            } else {
-                ivEmptyList.visibility = View.GONE
-                tvEmptyList.visibility = View.GONE
-                setAdapterData(movies)
-                rvDisplayMovies.visibility = View.VISIBLE
-            }
+    private fun setScreenForLoading() {
+        binding?.apply {
+            pbDisplayMovies.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setScreenForEmptyList() {
+        binding?.apply {
+            ivEmptyList.visibility = View.VISIBLE
+            tvEmptyList.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setScreenForDisplayMovies(movies: List<UiMovie>) {
+        binding?.apply {
+            setAdapterData(movies)
+            rvDisplayMovies.visibility = View.VISIBLE
         }
     }
 
@@ -135,26 +137,34 @@ class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiSt
         findMoviesAdapter.setData(movies)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        binding = FragmentMoviesFindBinding.inflate(inflater, container, false)
-        setUpRecyclerView()
-        setupMenuListeners()
-        return binding.root
+    private fun setScreenForError(error: Throwable) {
+        binding?.apply {
+            ivError.visibility = View.VISIBLE
+            tvError.text = getString(R.string.something_went_wrong, error.message)
+            tvError.visibility = View.VISIBLE
+        }
     }
+
+    private fun setupUserIntents() {
+        findMoviesViewModel?.processUserIntents(userIntents())
+    }
+
+    override fun userIntents(): Flow<FindMoviesUserIntent> = userIntents.asSharedFlow()
 
     private fun setUpRecyclerView() {
         try {
-            binding.rvDisplayMovies.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            binding.rvDisplayMovies.itemAnimator = DefaultItemAnimator()
-            binding.rvDisplayMovies.adapter = findMoviesAdapter
+            binding?.apply {
+                rvDisplayMovies.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                rvDisplayMovies.itemAnimator = DefaultItemAnimator()
+                rvDisplayMovies.adapter = findMoviesAdapter
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
     }
 
     private fun setupMenuListeners() {
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+        binding?.topAppBar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_search -> {
                     val searchView = menuItem.actionView as SearchView
@@ -164,9 +174,9 @@ class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiSt
                         }
 
                         override fun onQueryTextSubmit(query: String?): Boolean {
-                            searchFilterIntentPublisher.onNext(
-                                SearchFilterUserIntent(query ?: DefaultValues.emptyString())
-                            )
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                userIntents.emit(SearchFilterUserIntent(query.orEmpty()))
+                            }
                             return false
                         }
                     })
@@ -176,22 +186,5 @@ class FindMoviesFragment: Fragment(), MviUi<FindMoviesUserIntent, FindMoviesUiSt
             }
         }
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.find_movies_menu, menu)
-//        val searchView = menu.findItem(R.id.menu_search)?.actionView as SearchView
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                searchFilterIntentPublisher.onNext(
-//                    SearchFilterUserIntent(query ?: DefaultValues.emptyString())
-//                )
-//                return false
-//            }
-//        })
-//    }
 
 }

@@ -1,7 +1,7 @@
 package com.tzion.openmovies.data.mapper
 
 import com.tzion.openmovies.factory.MovieFactory.makeRemoteMovie
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class DataMovieMapperTest {
@@ -12,7 +12,7 @@ class DataMovieMapperTest {
     fun `given remote movie, when fromRemoteToDomain, then return DomainMovie`() {
         val remoteMovie = makeRemoteMovie()
 
-        val domainMovie = with(dataMovieMapper) { remoteMovie.fromRemoteToDomain() }
+        val domainMovie = with(dataMovieMapper) { remoteMovie.toDomain() }
 
         assertEquals("movieId", domainMovie.movieId, remoteMovie.imdbId)
         assertEquals("title", domainMovie.title, remoteMovie.title)

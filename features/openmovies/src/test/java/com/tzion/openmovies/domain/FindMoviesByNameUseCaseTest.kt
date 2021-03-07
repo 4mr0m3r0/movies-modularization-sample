@@ -1,48 +1,48 @@
 package com.tzion.openmovies.domain
 
-import com.nhaarman.mockitokotlin2.*
-import com.tzion.openmovies.factory.MovieFactory.makeDomainMovie
 import com.tzion.openmovies.domain.model.DomainMovie
-import io.reactivex.Single
+import com.tzion.openmovies.factory.MovieFactory.makeDomainMovie
+import com.tzion.testing.RandomFactory
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class FindMoviesByNameUseCaseTest {
 
-    private val repository = mock<Repository>()
+    private val repository = mockk<Repository>()
     private val useCase = FindMoviesByNameUseCase(repository)
 
     @Test
-    fun `given params, when buildUseCaseObservable, then complete`() {
-        val param = com.tzion.testing.RandomFactory.generateString()
-        stubRepository(Single.just(listOf(makeDomainMovie())))
-
-        val testObserver = useCase.execute(param).test()
-
-        testObserver.assertComplete()
-    }
-
-    @Test
-    fun `given params, when buildUseCaseObservable, then return data`() {
-        val param = com.tzion.testing.RandomFactory.generateString()
+    fun `given params, when execute, then return data`() = runBlocking {
+        val param = RandomFactory.generateString()
         val domainMovie = makeDomainMovie()
-        stubRepository(Single.just(listOf(domainMovie)))
+        stubRepository(listOf(domainMovie))
 
-        val testObserver = useCase.execute(param).test()
+        val resultFlow = useCase.execute(param)
 
-        testObserver.assertValue(listOf(domainMovie))
-    }
-
-    private fun stubRepository(single: Single<List<DomainMovie>>) {
-        whenever(repository.findMoviesByText(any())).thenReturn(single)
+        resultFlow.collect { resultMovies ->
+            assertEquals(listOf(domainMovie), resultMovies, "movies")
+        }
     }
 
     @Test
-    fun `given params, when buildUseCaseObservable, then call repository findMoviesByText`() {
-        val param = com.tzion.testing.RandomFactory.generateString()
+    fun `given params, when execute, then call repository findMoviesByText`() = runBlocking {
+        val param = RandomFactory.generateString()
+        val domainMovie = makeDomainMovie()
+        stubRepository(listOf(domainMovie))
 
         useCase.execute(param)
 
-        verify(repository, times(1)).findMoviesByText(param)
+        coVerify(atMost = 1) { repository.findMoviesByText(param) }
+    }
+
+    private fun stubRepository(domainMovies: List<DomainMovie>) {
+        coEvery { repository.findMoviesByText(any()) } returns flow { emit(domainMovies) }
     }
 
 }
