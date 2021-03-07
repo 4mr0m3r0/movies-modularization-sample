@@ -6,7 +6,7 @@ Modularization Sample
 
 ## 🚧 👷🏗️ Work in Progress 🔨👷 🚧
 This is a Modularization project sample that combines Dynamic Features, Clean Architecture, Model View Intent (MVI)
-with Kotlin Flow (working), Jetpack Navigation, Dagger, Retrofit, Room (working), Dynamic Navigator library (working)
+with Kotlin Flow, Jetpack Navigation, Dagger, Retrofit, Room (working), Dynamic Navigator library.
 
 First of all
 ------------
